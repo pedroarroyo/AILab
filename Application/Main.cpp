@@ -52,7 +52,6 @@ int main()
 {
 	_setmode(_fileno(stdout), _O_U16TEXT);
 
-
 	// Sets up resources.
 	AsciiCanvas canvas(30, 20);
 	Game game( g_boardSize, kPlayerStrategyTypeHuman, kPlayerStrategyTypeAiDifficult );

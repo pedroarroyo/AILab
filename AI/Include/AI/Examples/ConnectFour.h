@@ -2,7 +2,7 @@
 #define AI_EXAMPLES_CONNECTFOUR_H_
 
 #include "GameBoard.h"
-#include "Ai/GameTree.h"
+#include "ai/node.h"
 
 namespace Ai
 {
@@ -39,7 +39,7 @@ namespace Ai
 	ConnectFourMoveResult ConnectFourAnalyzeMove(const ConnectFourGameBoard& gameBoard, const ConnectFourMove& move);
 
 	// Classes
-	class ConnectFourMove : public GameTreeMove
+	class ConnectFourMove : public Action
 	{
 	public:
 		ConnectFourMove() : m_row(0), m_column(0) {}
@@ -53,7 +53,7 @@ namespace Ai
 		unsigned m_column;
 	};
 
-	class ConnectFourTreeNode : public Ai::GameTreeNode< ConnectFourNode >
+	class ConnectFourTreeNode : public Ai::Node< ConnectFourNode >
 	{
 	public:
 		// TODO - How do we handle passing in undefined board value?
@@ -162,15 +162,15 @@ namespace Ai
 		int m_maxn;
 	};
 
-	typedef GameTreeNodeVisitor<ConnectFourNode, ConnectFourMove> TicTacToeGameTreeNodeVisitor;
+	typedef Game<ConnectFourNode, ConnectFourMove> TicTacToeNodeVisitor;
 
 
 	/*
 	template< class GameBoard >
-	class TicTacToeGameTreeNodeVisitor : public GameTreeNodeVisitor< TicTacToeGameTreeNodeVisitor<GameBoard> >
+	class TicTacToeNodeVisitor : public Game< TicTacToeNodeVisitor<GameBoard> >
 	{
 	public:
-	TicTacToeGameTreeNodeVisitor(TicTacToeNode<GameBoard> node) : m_node(node) {}
+	TicTacToeNodeVisitor(TicTacToeNode<GameBoard> node) : m_node(node) {}
 
 	TicTacToeNode<GameBoard>& operator*()
 	{

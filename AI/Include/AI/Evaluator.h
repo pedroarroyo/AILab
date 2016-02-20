@@ -8,7 +8,7 @@
 
 namespace Ai
 { 
-	template <class GameTreeNode> int MiniMax(const GameTreeNode& node, int depth, int a, int b, bool returnMaximum)
+	template <class Node> int MiniMax(const Node& node, int depth, int a, int b, bool returnMaximum)
 	{
 		if (depth == 0 || node.IsTerminal())
 		{
@@ -16,11 +16,11 @@ namespace Ai
 		}
 
 		// TODO Make this an iterator/generator
-		std::vector<GameTreeNode> childNodes;
+		std::vector<Node> childNodes;
 		node.GenerateChildren(childNodes);
 		if (returnMaximum)
 		{
-			for (const GameTreeNode childNode : childNodes)
+			for (const Node childNode : childNodes)
 			{
 				a = std::max(a, MiniMax(childNode, depth - 1, a, b, !returnMaximum));
 				if (b <= a)
@@ -33,7 +33,7 @@ namespace Ai
 		}
 		else
 		{
-			for (const GameTreeNode childNode : childNodes)
+			for (const Node childNode : childNodes)
 			{
 				b = std::min(b, MiniMax(childNode, depth - 1, a, b, !returnMaximum));
 				if (b <= a)

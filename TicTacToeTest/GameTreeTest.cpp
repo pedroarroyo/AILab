@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-#include "GameTree.h"
+#include "ai/game_tree.h"
 
 using namespace System;
 using namespace System::Text;

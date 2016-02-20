@@ -9,7 +9,7 @@
 #define PLAYER_H_
 
 #include "GameTypes.h"
-#include "Ai/Examples/TicTacToe.h"
+#include "ai/examples/TicTacToe.h"
 #include <iostream>
 #include <vector>
 

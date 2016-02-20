@@ -39,14 +39,14 @@
     <ClInclude Include="Include\AI\Evaluator.h">
       <Filter>Header Files\AI</Filter>
     </ClInclude>
-    <ClInclude Include="Include\AI\GameTree.h">
-      <Filter>Header Files\AI</Filter>
-    </ClInclude>
     <ClInclude Include="Include\AI\Examples\TicTacToe.h">
       <Filter>Header Files\AI\Examples</Filter>
     </ClInclude>
     <ClInclude Include="Examples\ConnectFour.h">
       <Filter>Header Files\AI\Examples</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\ai\node.h">
+      <Filter>Header Files\AI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -2,7 +2,7 @@
 #define AI_EXAMPLES_TICTACTOE_H_
 
 #include "GameBoard.h"
-#include "AI/GameTree.h"
+#include "ai/node.h"
 
 namespace Ai
 {
@@ -39,7 +39,7 @@ namespace Ai
 	TicTacToeMoveResult TicTacToeAnalyzeMove(const TicTacToeGameBoard& gameBoard, const TicTacToeMove& move);
 
 	// Classes
-	class TicTacToeMove : public Ai::GameTreeMove
+	class TicTacToeMove : public Ai::Action
 	{
 	public:
 		TicTacToeMove() : m_row(0), m_column(0) {}
@@ -53,7 +53,7 @@ namespace Ai
 		unsigned m_column;
 	};
 
-	class TicTacToeTreeNode : public Ai::GameTreeNode< TicTacToeNode >
+	class TicTacToeTreeNode : public Ai::Node< TicTacToeNode >
 	{
 	public:
 		// TODO - How do we handle passing in undefined board value?
@@ -162,7 +162,7 @@ namespace Ai
 		int m_maxn;
 	};
 
-	typedef GameTreeNodeVisitor<TicTacToeNode, TicTacToeMove> TicTacToeGameTreeNodeVisitor;
+	typedef Game<TicTacToeNode, TicTacToeMove> TicTacToeGameTreeNodeVisitor;
 
 
 	/*
