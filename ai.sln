@@ -15,7 +15,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Vis", "Vis\Vis.vcxproj", "{
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VisConnectFour", "VisConnectFour\VisConnectFour.vcxproj", "{D3AA3374-1807-4D74-BC1D-E89A2E64E196}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Ai", "ai\ai.vcxproj", "{261218CB-3639-4A57-8259-A2567D4DA027}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ai", "ai\ai.vcxproj", "{261218CB-3639-4A57-8259-A2567D4DA027}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -11,9 +11,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{5A8D7066-41E5-4E60-BC7A-54DC1995DEA9}</ProjectGuid>
+    <ProjectGuid>{261218CB-3639-4A57-8259-A2567D4DA027}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>TicTacToe</RootNamespace>
+    <RootNamespace>AI</RootNamespace>
+    <ProjectName>ai</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -42,20 +43,16 @@
   <PropertyGroup />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>Create</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)\ai\examples;$(SolutionDir)\ai\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
-    <Lib>
-      <AdditionalDependencies>Ai.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\pedro\Projects\AiLab\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -77,21 +74,19 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AsciiCanvas.h" />
-    <ClInclude Include="AsciiSprite.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="GameMath.h" />
-    <ClInclude Include="GameTypes.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="PlayerAi.h" />
+    <ClInclude Include="examples\connect_four.h" />
+    <ClInclude Include="examples\tic_tac_toe.h" />
+    <ClInclude Include="include\ai\evaluator.h" />
+    <ClInclude Include="include\ai\examples\connect_four.h" />
+    <ClInclude Include="include\ai\examples\game_board.h" />
+    <ClInclude Include="include\ai\examples\tic_tac_toe.h" />
+    <ClInclude Include="include\ai\node.h" />
+    <ClInclude Include="include\ai\state.h" />
+    <ClInclude Include="include\ai\visitor.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AsciiCanvas.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="PlayerAi.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>

@@ -3,7 +3,7 @@
 
 #include "Player.h"
 
-#include "AI/Examples/TicTacToe.h"
+#include "ai/examples/tic_tac_toe.h"
 
 class AiPlayerMiniMax : public PlayerStrategy
 {

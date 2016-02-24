@@ -53,7 +53,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>PDC_WIDE;WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)\External\SDL-1.2.15\include;$(SolutionDir)\External\pdcurs34\include;$(SolutionDir)/Vis/Include;$(SolutionDir)/AI/Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\External\SDL-1.2.15\include;$(SolutionDir)\External\pdcurs34\include;$(SolutionDir)/Vis/Include;$(SolutionDir)/ai/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
