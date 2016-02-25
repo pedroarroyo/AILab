@@ -1,18 +1,16 @@
 // Evaluator.h
 // Evaluators are implementations of various AI algorithms.
 
-#ifndef AI_EVALUATOR_H_
-#define AI_EVALUATOR_H_
-
-#include "Visitor.h"
+#ifndef AI_MINIMAX_H_
+#define AI_MINIMAX_H_
 
 namespace Ai
 { 
-	template <class Node> int MiniMax(const Node& node, int depth, int a, int b, bool returnMaximum)
+	template <class Node, class GamePolicy> int MiniMax(const Node& node, int depth, int a, int b, bool returnMaximum, GamePolicy& game)
 	{
-		if (depth == 0 || node.IsTerminal())
+		if (depth == 0 || game.TerminalTest(node))
 		{
-			return node.DetermineScore(returnMaximum);
+			return game.Utility(node, returnMaximum);
 		}
 
 		// TODO Make this an iterator/generator
@@ -22,7 +20,7 @@ namespace Ai
 		{
 			for (const Node childNode : childNodes)
 			{
-				a = std::max(a, MiniMax(childNode, depth - 1, a, b, !returnMaximum));
+				a = std::max(a, MiniMax<Node, GamePolicy>(childNode, depth - 1, a, b, !returnMaximum, game));
 				if (b <= a)
 				{
 					return b; // beta cutoff.
@@ -35,7 +33,7 @@ namespace Ai
 		{
 			for (const Node childNode : childNodes)
 			{
-				b = std::min(b, MiniMax(childNode, depth - 1, a, b, !returnMaximum));
+				b = std::min(b, MiniMax<Node, GamePolicy>(childNode, depth - 1, a, b, !returnMaximum, game));
 				if (b <= a)
 				{
 					return a; // alpha cutoff.

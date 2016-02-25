@@ -48,9 +48,6 @@
     <ClInclude Include="include\ai\examples\tic_tac_toe.h">
       <Filter>Header Files\ai\examples</Filter>
     </ClInclude>
-    <ClInclude Include="include\ai\evaluator.h">
-      <Filter>Header Files\ai</Filter>
-    </ClInclude>
     <ClInclude Include="include\ai\node.h">
       <Filter>Header Files\ai</Filter>
     </ClInclude>
@@ -58,6 +55,12 @@
       <Filter>Header Files\ai</Filter>
     </ClInclude>
     <ClInclude Include="include\ai\visitor.h">
+      <Filter>Header Files\ai</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ai\minimax.h">
+      <Filter>Header Files\ai</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ai\game.h">
       <Filter>Header Files\ai</Filter>
     </ClInclude>
   </ItemGroup>

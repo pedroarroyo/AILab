@@ -6,7 +6,88 @@
 
 namespace Ai
 {
+	// Actions are the edges of the adversarial search tree.
+	class Action
+	{
+
+	};
+
 	// A Game encapsulates the heurisstics by which states are evaluated.
+	template<class DerivedClass>
+	class Node
+	{
+	private:
+		struct generator
+		{
+			generator() : _n{ 0 }, _ln{ 0 } {}
+			generator(int n) : _n{ n }, _ln{ 0 } {}
+
+			generator & operator*() {
+				//				return node;
+				return _n;
+			}
+
+			bool operator!=(const generator & other) const {
+				return _n <= other._n;
+			}
+
+			generator& operator++() {
+				int temp = _ln + _n;
+				_ln = _n;
+				_n = temp;
+				return *this;
+			}
+
+		private:
+			int _n, _ln;
+			DerivedClass node;
+		};
+
+	public:
+		generator begin() const
+		{
+			return generator(1);
+		}
+		generator end() const
+		{
+			return generator(1);
+		}
+
+		void GenerateChildren(std::vector<Node>& children) const
+		{
+			return static_cast<DerivedClass>(this)->GenerateChildren(children);
+		}
+
+		Node GetChild(const Action&) const
+		{
+			return static_cast<DerivedClass>(this)->GetChild(Action);
+		}
+
+		int DetermineScore(bool returnMaximum) const
+		{
+			static_cast<DerivedClass>(this)->DetermineScore(returnMaximum);
+		}
+
+		void GenerateMoves(std::vector<Action>& moves) const
+		{
+			static_cast<DerivedClass>(this)->GenerateChildNodes(moves);
+		}
+
+		bool IsTerminal() const
+		{
+			static_cast<DerivedClass>(this)->IsTerminal();
+		}
+
+		bool IsMoveValid(const Action& move)
+		{
+			static_cast<DerivedClass>(this)->IsMoveValid(move);
+		}
+	};
+
+
+
+
+	// States define the nodes of the search tree.
 	template< class Node, class Action >
 	class Game
 	{
@@ -27,15 +108,15 @@ namespace Ai
 			return node.IsTerminal();
 		}
 
-		int DetermineScore(bool returnMaximum) const
+		int DetermineScore(Node node, bool returnMaximum) const
 		{
-			return m_node.DetermineScore(returnMaximum);
+			return static_cast<DerivedClass>(this)->(node, returnMaximum);
 		}
 
-		void GenerateMoves(std::vector<Action>& moves) const
-		{
-			return m_node.GenerateMoves(moves);
-		}
+//		void GenerateMoves(std::vector<Action>& moves) const
+//		{
+//			return m_node.GenerateMoves(moves);
+//		}
 
 		Action GetMove() const
 		{
@@ -43,95 +124,19 @@ namespace Ai
 		}
 
 		// TODO change this to overloaded dereference operator.
-		const Node& GetNode() const { return node; }
+//		const Node& GetNode() const { return node; }
 
-		bool IsMoveValid(const Action& move) const
-		{
-			return m_node.IsMoveValid(move);
-		}
+//		bool IsMoveValid(const Action& move) const
+//		{
+//			return m_node.IsMoveValid(move);
+//		}
 
 	private:
-		Node m_node;
+//		Node m_node;
 		//		std::vector<Action<DerivedClass>> m_moves;
 	};
 
-	// Actions are the edges of the adversarial search tree.
-	class Action
-	{
 
-	};
-
-	// States define the nodes of the search tree.
-	template<class DerivedClass>
-	class Node
-	{
-	private:
-		struct generator 
-		{
-			generator() : _n{ 0 }, _ln{ 0 } {}
-			generator(int n) : _n{ n }, _ln{ 0 } {}
-
-			generator & operator*() {
-//				return node;
-				return _n;
-			}
-
-			bool operator!=(const generator & other) const {
-				return _n <= other._n;
-			}
-
-			generator& operator++() {
-				int temp = _ln + _n;
-				_ln = _n;
-				_n = temp;
-				return *this;
-			}
-			
-		private:
-			int _n, _ln;
-			DerivedClass node;
-		};
-		
-	public:
-		generator begin() const 
-		{
-			return generator(1);
-		}
-		generator end() const 
-		{
-			return generator(1);
-		}
-
-		void GenerateChildren(std::vector<Node>& children) const
-		{
-			return static_cast<DerivedClass>(this)->GenerateChildren(children);
-		}
-
-		Node GetChild(const Action& ) const
-		{
-			return static_cast<DerivedClass>(this)->GetChild(Action);
-		}
-
-		int DetermineScore( bool returnMaximum ) const
-		{
-			static_cast<DerivedClass>(this)->DetermineScore(returnMaximum);
- 		}
-
-		void GenerateMoves(std::vector<Action>& moves) const
-		{
-			static_cast<DerivedClass>(this)->GenerateChildNodes(moves);
-		}
-
-		bool IsTerminal() const
-		{
-			static_cast<DerivedClass>(this)->IsTerminal();
-		}
-
-		bool IsMoveValid(const Action& move)
-		{
-			static_cast<DerivedClass>(this)->IsMoveValid(move);
-		}
-	};
 
 
 };

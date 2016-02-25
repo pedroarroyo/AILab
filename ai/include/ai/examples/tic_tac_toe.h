@@ -2,6 +2,7 @@
 #define AI_EXAMPLES_TICTACTOE_H_
 
 #include "game_board.h"
+#include "ai/game.h"
 #include "ai/node.h"
 
 namespace Ai
@@ -64,24 +65,6 @@ namespace Ai
 		TicTacToeTreeNode(TicTacToeMove move, TicTacToeGameBoard gameBoard)
 			: m_parentLink(move)
 			, m_gameBoard(gameBoard) {}
-
-		int DetermineScore(bool returnMaximum) const
-		{
-			const TicTacToeMoveResult result = TicTacToeAnalyzeMove( m_gameBoard, m_parentLink );
-
-			if (result == kTicTacToeMoveResult_Victory)
-			{
-				return returnMaximum ? 1 : -1;
-			}
-
-			return 0;
-		}
-
-		bool IsTerminal() const
-		{
-			TicTacToeMoveResult result = TicTacToeAnalyzeMove(m_gameBoard, m_parentLink);
-			return (result == kTicTacToeMoveResult_Draw || result == kTicTacToeMoveResult_Victory);
-		}
 
 		void GenerateChildren(std::vector<TicTacToeTreeNode>& children) const
 		{
@@ -156,13 +139,38 @@ namespace Ai
 			return generator(m_maxn);
 		}
 */
-	private:
+//	private:
 		TicTacToeGameBoard m_gameBoard;
 		TicTacToeMove m_parentLink;
 		int m_maxn;
 	};
 
-	typedef Game<TicTacToeNode, TicTacToeMove> TicTacToeGameTreeNodeVisitor;
+	typedef Game<TicTacToeNode, TicTacToeMove> TicTacToe;
+	
+	struct TicTacToePolicy : public GamePolicy<TicTacToeTreeNode>
+	{
+		virtual ~TicTacToePolicy() override { ; }
+
+		bool TerminalTest(const TicTacToeTreeNode& node) override
+		{
+			TicTacToeMoveResult result = TicTacToeAnalyzeMove(node.m_gameBoard, node.m_parentLink);
+			return (result == kTicTacToeMoveResult_Draw || result == kTicTacToeMoveResult_Victory);
+		}
+
+		int Utility(const TicTacToeTreeNode& node, bool returnMaximum) override
+		{
+			const TicTacToeMoveResult result = TicTacToeAnalyzeMove(node.m_gameBoard, node.m_parentLink);
+
+			if (result == kTicTacToeMoveResult_Victory)
+			{
+				return returnMaximum ? 1 : -1;
+			}
+
+			return 0;
+		}
+	};
+
+
 
 
 	/*

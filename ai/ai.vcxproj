@@ -76,7 +76,8 @@
   <ItemGroup>
     <ClInclude Include="examples\connect_four.h" />
     <ClInclude Include="examples\tic_tac_toe.h" />
-    <ClInclude Include="include\ai\evaluator.h" />
+    <ClInclude Include="include\ai\game.h" />
+    <ClInclude Include="include\ai\minimax.h" />
     <ClInclude Include="include\ai\examples\connect_four.h" />
     <ClInclude Include="include\ai\examples\game_board.h" />
     <ClInclude Include="include\ai\examples\tic_tac_toe.h" />

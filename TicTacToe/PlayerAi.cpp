@@ -2,7 +2,7 @@
 
 #include "PlayerAi.h"
 
-#include "AI/Evaluator.h"
+#include "ai/minimax.h"
 
 void AiPlayerMiniMax::DetermineMove(const Ai::TicTacToeMove& lastMove, Ai::TicTacToeGameBoardValue player, const Ai::TicTacToeGameBoard& gameBoard, unsigned& outRow, unsigned& outColumn)
 {
@@ -21,8 +21,9 @@ void AiPlayerMiniMax::DetermineMove(const Ai::TicTacToeMove& lastMove, Ai::TicTa
 	for each(const Ai::TicTacToeMove& move in moves)
 	{
 		// Generate a child for each move.
+		Ai::TicTacToePolicy game;
 		Ai::TicTacToeTreeNode child = tree.GetChild(move);
-		int v = Ai::MiniMax(child, 10, a, b, true);
+		int v = Ai::MiniMax<Ai::TicTacToeTreeNode, Ai::TicTacToePolicy>(child, 10, a, b, true, game);
 		if (v > a) 
 		{
 			a = v;
