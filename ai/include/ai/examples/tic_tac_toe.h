@@ -8,7 +8,7 @@
 namespace Ai
 {
 	// Types
-	enum TicTacToeGameBoardValue
+	enum TicTacToePlayer
 	{
 		kTicTacToeGameBoardValue_Empty= 1,
 		kTicTacToeGameBoardValue_O = 0,
@@ -23,8 +23,8 @@ namespace Ai
 		kTicTacToeMoveResult_Draw
 	};
 
-	typedef GameBoardLocation<TicTacToeGameBoardValue> TicTacToeGameBoardLocation;
-	typedef GameBoard<TicTacToeGameBoardValue, 3, 3> TicTacToeGameBoard_t;
+	typedef GameBoardLocation<TicTacToePlayer> TicTacToeGameBoardLocation;
+	typedef GameBoard<TicTacToePlayer, 3, 3> TicTacToeGameBoard_t;
 
 	class TicTacToeGameBoard : public TicTacToeGameBoard_t
 	{
@@ -37,19 +37,19 @@ namespace Ai
 	class TicTacToeMove;
 
 	// Helpers
-	TicTacToeMoveResult TicTacToeAnalyzeMove(const TicTacToeGameBoard& gameBoard, const TicTacToeMove& move);
+	TicTacToeMoveResult TicTacToeAnalyzeMove(const TicTacToeGameBoard& gameBoard, const TicTacToeMove& Move_t);
 
 	// Classes
 	class TicTacToeMove : public Ai::Action
 	{
 	public:
 		TicTacToeMove() : m_row(0), m_column(0) {}
-		TicTacToeMove(TicTacToeGameBoardValue value, unsigned row, unsigned column) 
+		TicTacToeMove(TicTacToePlayer value, unsigned row, unsigned column) 
 			: m_value(value)
 			, m_row(row)
 			, m_column(column) {}
 
-		TicTacToeGameBoardValue m_value;
+		TicTacToePlayer m_value;
 		unsigned m_row;
 		unsigned m_column;
 	};
@@ -58,19 +58,19 @@ namespace Ai
 	{
 	public:
 		// TODO - How do we handle passing in undefined board value?
-		TicTacToeTreeNode(TicTacToeGameBoardValue initialPlayer, TicTacToeGameBoard gameBoard ) 
+		TicTacToeTreeNode(TicTacToePlayer initialPlayer, TicTacToeGameBoard gameBoard ) 
 			: m_parentLink( (initialPlayer == kTicTacToeGameBoardValue_O) ?  kTicTacToeGameBoardValue_X : kTicTacToeGameBoardValue_O, 0, 0) 
 			, m_gameBoard(gameBoard) {}
 
-		TicTacToeTreeNode(TicTacToeMove move, TicTacToeGameBoard gameBoard)
-			: m_parentLink(move)
+		TicTacToeTreeNode(TicTacToeMove Move_t, TicTacToeGameBoard gameBoard)
+			: m_parentLink(Move_t)
 			, m_gameBoard(gameBoard) {}
 
 		void GenerateChildren(std::vector<TicTacToeTreeNode>& children) const
 		{
 			// Reverse the player from our parent link to generate the moves for the next ply.
 			// TODO Create a new type that exposes not operator.
-			TicTacToeGameBoardValue nextPlayer =
+			TicTacToePlayer nextPlayer =
 				m_parentLink.m_value == kTicTacToeGameBoardValue_O ? kTicTacToeGameBoardValue_X : kTicTacToeGameBoardValue_O;
 
 			unsigned numRows = m_gameBoard.GetNumRows();
@@ -79,13 +79,13 @@ namespace Ai
 			{
 				for (unsigned column = 0; column < numColumns; column++)
 				{
-					GameBoardLocation<TicTacToeGameBoardValue> element = m_gameBoard.GetValue(row, column);
+					GameBoardLocation<TicTacToePlayer> element = m_gameBoard.GetValue(row, column);
 					if (element.m_contents == Ai::kTicTacToeGameBoardValue_Empty)
 					{
-						TicTacToeMove move(nextPlayer, row, column);
+						TicTacToeMove Move_t(nextPlayer, row, column);
 						TicTacToeGameBoard gameBoard(m_gameBoard);
 						gameBoard.SetValue(row, column, nextPlayer);
-						children.emplace_back(move, gameBoard);
+						children.emplace_back(Move_t, gameBoard);
 					}
 				}
 			}
@@ -95,7 +95,7 @@ namespace Ai
 		{
 			// Reverse the player from our parent link to generate the moves for the next ply.
 			// TODO Create a new type that exposes not operator.
-			TicTacToeGameBoardValue playerValue =
+			TicTacToePlayer playerValue =
 				m_parentLink.m_value == kTicTacToeGameBoardValue_O ? kTicTacToeGameBoardValue_X : kTicTacToeGameBoardValue_O;
 
 			unsigned numRows = m_gameBoard.GetNumRows();
@@ -104,7 +104,7 @@ namespace Ai
 			{
 				for (unsigned column = 0; column < numColumns; column++)
 				{
-					GameBoardLocation<TicTacToeGameBoardValue> element = m_gameBoard.GetValue(row, column);
+					GameBoardLocation<TicTacToePlayer> element = m_gameBoard.GetValue(row, column);
 					if (element.m_contents == Ai::kTicTacToeGameBoardValue_Empty)
 					{
 						moves.emplace_back(playerValue, row, column);
@@ -113,18 +113,18 @@ namespace Ai
 			}
 		}
 
-		TicTacToeTreeNode GenerateChild( const TicTacToeMove& move ) const
+		TicTacToeTreeNode GenerateChild( const TicTacToeMove& Move_t ) const
 		{
 			TicTacToeTreeNode child(*this);
-			child.m_gameBoard.SetValue(move.m_row, move.m_column, move.m_value);
+			child.m_gameBoard.SetValue(Move_t.m_row, Move_t.m_column, Move_t.m_value);
 			return child;
 		}
 
-		TicTacToeTreeNode GetChild(const TicTacToeMove& move) const
+		TicTacToeTreeNode GetChild(const TicTacToeMove& Move_t) const
 		{
 			TicTacToeTreeNode child(*this);
-			child.m_gameBoard.SetValue(move.m_row, move.m_column, move.m_value);
-			child.m_parentLink = move;
+			child.m_gameBoard.SetValue(Move_t.m_row, Move_t.m_column, Move_t.m_value);
+			child.m_parentLink = Move_t;
 			return child;
 		}
 
@@ -147,9 +147,45 @@ namespace Ai
 
 	typedef Game<TicTacToeNode, TicTacToeMove> TicTacToe;
 	
-	struct TicTacToePolicy : public GamePolicy<TicTacToeTreeNode>
+	struct TicTacToePolicy : public Game_t<TicTacToeTreeNode, TicTacToeMove, TicTacToePlayer>
 	{
-		virtual ~TicTacToePolicy() override { ; }
+		virtual ~TicTacToePolicy() { ; }
+
+		virtual std::vector<TicTacToeMove> LegalMoves(const TicTacToeTreeNode& node, const TicTacToePlayer& player) override 
+		{
+			std::vector<TicTacToeMove> moves;
+
+			// Reverse the player from our parent link to generate the moves for the next ply.
+			// TODO Create a new type that exposes not operator.
+			TicTacToePlayer nextPlayer =
+				node.m_parentLink.m_value == kTicTacToeGameBoardValue_O ? kTicTacToeGameBoardValue_X : kTicTacToeGameBoardValue_O;
+
+			unsigned numRows = node.m_gameBoard.GetNumRows();
+			unsigned numColumns = node.m_gameBoard.GetNumColumns();
+			for (unsigned row = 0; row < numRows; row++)
+			{
+				for (unsigned column = 0; column < numColumns; column++)
+				{
+					GameBoardLocation<TicTacToePlayer> element = node.m_gameBoard.GetValue(row, column);
+					if (element.m_contents == Ai::kTicTacToeGameBoardValue_Empty)
+					{
+						TicTacToeMove Move_t(nextPlayer, row, column);
+						TicTacToeGameBoard gameBoard(node.m_gameBoard);
+						gameBoard.SetValue(row, column, nextPlayer);
+						moves.emplace_back(Move_t);
+					}
+				}
+			}
+
+			return moves;
+		};
+
+		virtual TicTacToeTreeNode MakeMove(const TicTacToeMove& Move_t, const TicTacToeTreeNode& node) override 
+		{
+			TicTacToeTreeNode child(node);
+			child.m_gameBoard.SetValue(Move_t.m_row, Move_t.m_column, Move_t.m_value);
+			return child;
+		};
 
 		bool TerminalTest(const TicTacToeTreeNode& node) override
 		{

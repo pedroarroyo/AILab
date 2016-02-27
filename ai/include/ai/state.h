@@ -13,7 +13,7 @@ namespace Ai
 	};
 
 	template<class DerivedClass>
-	class GameTreeNode
+	class State
 	{
 	private:
 		struct generator 
@@ -77,58 +77,10 @@ namespace Ai
 			static_cast<DerivedClass>(this)->IsTerminal();
 		}
 
-		bool IsMoveValid(const GameTreeMove& move)
+		bool IsMoveValid(const GameTreeMove& Move_t)
 		{
-			static_cast<DerivedClass>(this)->IsMoveValid(move);
+			static_cast<DerivedClass>(this)->IsMoveValid(Move_t);
 		}
-	};
-
-	template< class GameTreeNode, class GameTreeMove >
-	class GameTreeNodeVisitor
-	{
-	public:
-		GameTreeNodeVisitor(const GameTreeNode& node) : m_node(node) {}
-//		GameTreeNode<DerivedClass>& operator*()
-//		{
-//			return *(static_cast<DerivedClass>(this));
-//		}
-
-//		void ApplyMove(const GameTreeMove<DerivedClass>& move)
-//		{
-//			static_cast<DerivedClass>(this)->ApplyMove(move);
-//		}
-
-		bool IsTerminal() const
-		{
-			return m_node.IsTerminal();
-		}
-
-		int DetermineScore(bool returnMaximum) const
-		{
-			return m_node.DetermineScore(returnMaximum);
-		}
-
-		void GenerateMoves(std::vector<GameTreeMove>& moves) const
-		{
-			return m_node.GenerateMoves(moves);
-		}
-
-		GameTreeMove GetMove() const
-		{
-			return GameTreeMove();
-		}
-
-		// TODO change this to overloaded dereference operator.
-		const GameTreeNode& GetNode() const { return node; } 
-
-		bool IsMoveValid(const GameTreeMove& move) const
-		{
-			return m_node.IsMoveValid(move);
-		}
-
-	private:
-		GameTreeNode m_node;
-//		std::vector<GameTreeMove<DerivedClass>> m_moves;
 	};
 };
 

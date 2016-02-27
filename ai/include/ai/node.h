@@ -12,6 +12,12 @@ namespace Ai
 
 	};
 
+	// A Move_t is a change in the state performable by a player.
+	class Move_t
+	{
+
+	};
+
 	// A Game encapsulates the heurisstics by which states are evaluated.
 	template<class DerivedClass>
 	class Node
@@ -78,9 +84,9 @@ namespace Ai
 			static_cast<DerivedClass>(this)->IsTerminal();
 		}
 
-		bool IsMoveValid(const Action& move)
+		bool IsMoveValid(const Action& Move_t)
 		{
-			static_cast<DerivedClass>(this)->IsMoveValid(move);
+			static_cast<DerivedClass>(this)->IsMoveValid(Move_t);
 		}
 	};
 
@@ -98,9 +104,9 @@ namespace Ai
 		//			return *(static_cast<DerivedClass>(this));
 		//		}
 
-		//		void ApplyMove(const Action<DerivedClass>& move)
+		//		void ApplyMove(const Action<DerivedClass>& Move_t)
 		//		{
-		//			static_cast<DerivedClass>(this)->ApplyMove(move);
+		//			static_cast<DerivedClass>(this)->ApplyMove(Move_t);
 		//		}
 
 		bool IsTerminal(Node node) const
@@ -126,9 +132,9 @@ namespace Ai
 		// TODO change this to overloaded dereference operator.
 //		const Node& GetNode() const { return node; }
 
-//		bool IsMoveValid(const Action& move) const
+//		bool IsMoveValid(const Action& Move_t) const
 //		{
-//			return m_node.IsMoveValid(move);
+//			return m_node.IsMoveValid(Move_t);
 //		}
 
 	private:

@@ -49,7 +49,7 @@ const AsciiSprite Game::kSpriteGameBoard( kSpriteDataGameBoard, 20, 17 );
 namespace
 {
 	// TODO Implement this as a proper factory.
-	PlayerStrategy* CreatePlayerStrategy( Ai::TicTacToeGameBoardValue playerValue, PlayerStrategyType strategyType )
+	PlayerStrategy* CreatePlayerStrategy( Ai::TicTacToePlayer playerValue, PlayerStrategyType strategyType )
 	{
 		PlayerStrategy* playerStrategy = nullptr;
 		switch(strategyType)
@@ -132,9 +132,9 @@ Ai::TicTacToeMoveResult Game::NextTurn()
 	return result;
 }
 
-Ai::TicTacToeMoveResult Game::ProcessTurn( Ai::TicTacToeGameBoardValue player, PlayerStrategy& strategy )
+Ai::TicTacToeMoveResult Game::ProcessTurn( Ai::TicTacToePlayer player, PlayerStrategy& strategy )
 {
-	// Determines current player move.
+	// Determines current player Move_t.
 	unsigned row = 0, column = 0;
 	strategy.DetermineMove( m_lastMove, player, m_gameBoard, row, column );
 	m_lastMove.m_value = player;
@@ -176,7 +176,7 @@ void Game::Draw(AsciiCanvas& canvas) const
 		for( unsigned column = 0; column < boardSize; column++ )
 		{
 			Ai::TicTacToeGameBoardLocation location = m_gameBoard.GetValue(row, column);
-			Ai::TicTacToeGameBoardValue value = location.m_contents;
+			Ai::TicTacToePlayer value = location.m_contents;
 			if(  value == Ai::kTicTacToeGameBoardValue_X )
 			{
 				canvas.Draw( Util::Vector2<unsigned>( spriteX, spriteY ), kSpriteX );

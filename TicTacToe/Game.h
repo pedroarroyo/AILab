@@ -38,12 +38,12 @@ public:
 	};
 	Ai::TicTacToeMoveResult NextTurn();
 
-	Ai::TicTacToeGameBoardValue GetCurrentPlayer() const { return m_currentPlayer; }
+	Ai::TicTacToePlayer GetCurrentPlayer() const { return m_currentPlayer; }
 
 	void Draw( AsciiCanvas& canvas ) const;
 
 protected:
-	Ai::TicTacToeMoveResult ProcessTurn( Ai::TicTacToeGameBoardValue player, PlayerStrategy& strategy );
+	Ai::TicTacToeMoveResult ProcessTurn( Ai::TicTacToePlayer player, PlayerStrategy& strategy );
 
 private:
 	enum State
@@ -59,7 +59,7 @@ private:
 	PlayerStrategy* m_strategyPlayerO;
 
 	Ai::TicTacToeMove m_lastMove;
-	Ai::TicTacToeGameBoardValue m_currentPlayer;
+	Ai::TicTacToePlayer m_currentPlayer;
 
 //	AsciiSprite m_spriteBackground;
 //	AsciiSprite m_spriteO;

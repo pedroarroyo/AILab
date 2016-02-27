@@ -5,7 +5,7 @@
 #include <vector>
 #include "Game.h"
 
-void PhysicalPlayer::DetermineMove(const Ai::TicTacToeMove& lastMove, Ai::TicTacToeGameBoardValue player, const Ai::TicTacToeGameBoard& gameBoard, unsigned& outRow, unsigned& outColumn)
+void PhysicalPlayer::DetermineMove(const Ai::TicTacToeMove& lastMove, Ai::TicTacToePlayer player, const Ai::TicTacToeGameBoard& gameBoard, unsigned& outRow, unsigned& outColumn)
 {
 
 	// TODO Dependency inject these streams in order to mock them for testing.
@@ -25,12 +25,12 @@ void PhysicalPlayer::DetermineMove(const Ai::TicTacToeMove& lastMove, Ai::TicTac
 		loc = gameBoard.GetValue(outRow, outColumn);
 		if( loc.m_isNull ) 
 		{
-			std::wcout << "Invalid Move - Try Again" << std::endl;
+			std::wcout << "Invalid Move_t - Try Again" << std::endl;
 		}
 	}
 }
 
-void AiPlayerRandom::DetermineMove(const Ai::TicTacToeMove& lastMove, Ai::TicTacToeGameBoardValue player, const Ai::TicTacToeGameBoard& gameBoard, unsigned& outRow, unsigned& outColumn)
+void AiPlayerRandom::DetermineMove(const Ai::TicTacToeMove& lastMove, Ai::TicTacToePlayer player, const Ai::TicTacToeGameBoard& gameBoard, unsigned& outRow, unsigned& outColumn)
 {
 	/*
 	// Selects the first unoccupied square starting from the upper right.

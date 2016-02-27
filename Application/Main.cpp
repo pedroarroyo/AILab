@@ -20,7 +20,7 @@ namespace
 		SetConsoleCursorPosition(handle, pos);
 	};
 
-	void HandleGameResult( Ai::TicTacToeGameBoardValue player, Ai::TicTacToeMoveResult MoveResult )
+	void HandleGameResult( Ai::TicTacToePlayer player, Ai::TicTacToeMoveResult MoveResult )
 	{
 		if( MoveResult == Game::kMoveResultDraw )
 		{

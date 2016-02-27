@@ -7,7 +7,7 @@
 namespace Ai
 {
 	// Types
-	enum TicTacToeGameBoardValue
+	enum TicTacToePlayer
 	{
 		kTicTacToeGameBoardValue_Empty= 1,
 		kTicTacToeGameBoardValue_O = 0,
@@ -24,27 +24,27 @@ namespace Ai
 		kMoveResultDraw,
 	};
 
-	typedef GameBoardLocation<TicTacToeGameBoardValue> TicTacToeGameBoardLocation;
-	typedef GameBoard<TicTacToeGameBoardValue, 3, 3> TicTacToeGameBoard;
+	typedef GameBoardLocation<TicTacToePlayer> TicTacToeGameBoardLocation;
+	typedef GameBoard<TicTacToePlayer, 3, 3> TicTacToeGameBoard;
 
 	// Forward declarations.
 	class TicTacToeNode;
 	class TicTacToeMove;
 
 	// Helpers
-	TicTacToeMoveResult AnalyzeMove(const TicTacToeGameBoard& gameBoard, const TicTacToeMove& move);
+	TicTacToeMoveResult AnalyzeMove(const TicTacToeGameBoard& gameBoard, const TicTacToeMove& Move_t);
 
 	// Classes
 	class TicTacToeMove : public Ai::GameTreeMove
 	{
 	public:
 		TicTacToeMove() : m_row(0), m_column(0) {}
-		TicTacToeMove(TicTacToeGameBoardValue value, unsigned row, unsigned column) 
+		TicTacToeMove(TicTacToePlayer value, unsigned row, unsigned column) 
 			: m_value(value)
 			, m_row(row)
 			, m_column(column) {}
 
-		TicTacToeGameBoardValue m_value;
+		TicTacToePlayer m_value;
 		unsigned m_row;
 		unsigned m_column;
 	};
@@ -61,7 +61,7 @@ namespace Ai
 		void GenerateMoves(std::vector<TicTacToeMove>& moves) const
 		{
 			// Inverts the player when generating moves to our child nodes.
-			TicTacToeGameBoardValue value = (m_move.m_value == kTicTacToeGameBoardValue_X) ? kTicTacToeGameBoardValue_O : kTicTacToeGameBoardValue_X;
+			TicTacToePlayer value = (m_move.m_value == kTicTacToeGameBoardValue_X) ? kTicTacToeGameBoardValue_O : kTicTacToeGameBoardValue_X;
 
 			unsigned numRows = m_gameBoard.GetNumRows();
 			unsigned numColumns = m_gameBoard.GetNumColumns();
@@ -70,7 +70,7 @@ namespace Ai
 			{
 				for (unsigned column = 0; column < numColumns; column++)
 				{
-					GameBoardLocation<TicTacToeGameBoardValue> element = m_gameBoard.GetValue(row, column);
+					GameBoardLocation<TicTacToePlayer> element = m_gameBoard.GetValue(row, column);
 					if (element.m_contents == Ai::kTicTacToeGameBoardValue_Empty)
 					{
 						moves.emplace_back(value, row, column);
@@ -79,10 +79,10 @@ namespace Ai
 			}
 		}
 
-		TicTacToeNode GenerateChild( const TicTacToeMove& move ) const
+		TicTacToeNode GenerateChild( const TicTacToeMove& Move_t ) const
 		{
 			TicTacToeNode child(*this);
-			child.m_gameBoard.SetValue(move.m_row, move.m_column, move.m_value);
+			child.m_gameBoard.SetValue(Move_t.m_row, Move_t.m_column, Move_t.m_value);
 			return child;
 		}
 
@@ -92,10 +92,10 @@ namespace Ai
 			return (result == kMoveResultDraw || result == kMoveResultVictory);
 		}
 
-		TicTacToeNode GetChild(const TicTacToeMove& move) const
+		TicTacToeNode GetChild(const TicTacToeMove& Move_t) const
 		{
 			TicTacToeNode child(m_gameBoard);
-			child.m_gameBoard.SetValue(move.m_row, move.m_column, move.m_value);
+			child.m_gameBoard.SetValue(Move_t.m_row, Move_t.m_column, Move_t.m_value);
 			return child;
 		}
 

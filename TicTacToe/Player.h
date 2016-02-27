@@ -27,7 +27,7 @@ public:
 	PlayerStrategy(PlayerStrategyType type) : m_type(type) {}
 	virtual ~PlayerStrategy() {}
 
-	virtual void DetermineMove(const Ai::TicTacToeMove& lastMove, Ai::TicTacToeGameBoardValue player, const Ai::TicTacToeGameBoard& gameBoard, unsigned& outRow, unsigned& outColumn) = 0;
+	virtual void DetermineMove(const Ai::TicTacToeMove& lastMove, Ai::TicTacToePlayer player, const Ai::TicTacToeGameBoard& gameBoard, unsigned& outRow, unsigned& outColumn) = 0;
 
 	PlayerStrategyType GetType() const { return m_type; }
 
@@ -41,7 +41,7 @@ public:
 	PhysicalPlayer() : PlayerStrategy( kPlayerStrategyTypeHuman ) {}
 
 	// PlayerStrategy
-	virtual void DetermineMove(const Ai::TicTacToeMove& lastMove, Ai::TicTacToeGameBoardValue player, const Ai::TicTacToeGameBoard& gameBoard, unsigned& outRow, unsigned& outColumn) override;
+	virtual void DetermineMove(const Ai::TicTacToeMove& lastMove, Ai::TicTacToePlayer player, const Ai::TicTacToeGameBoard& gameBoard, unsigned& outRow, unsigned& outColumn) override;
 };
 
 class AiPlayerRandom : public PlayerStrategy
@@ -50,7 +50,7 @@ public:
 	AiPlayerRandom() : PlayerStrategy( kPlayerStrategyTypeAiEasy ) {} 
 
 	// PlayerStrategy
-	virtual void DetermineMove(const Ai::TicTacToeMove& lastMove, Ai::TicTacToeGameBoardValue player, const Ai::TicTacToeGameBoard& gameBoard, unsigned& outRow, unsigned& outColumn) override;
+	virtual void DetermineMove(const Ai::TicTacToeMove& lastMove, Ai::TicTacToePlayer player, const Ai::TicTacToeGameBoard& gameBoard, unsigned& outRow, unsigned& outColumn) override;
 };
 
 #endif

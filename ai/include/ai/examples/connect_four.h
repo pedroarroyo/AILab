@@ -36,7 +36,7 @@ namespace Ai
 	class ConnectFourMove;
 
 	// Helpers
-	ConnectFourMoveResult ConnectFourAnalyzeMove(const ConnectFourGameBoard& gameBoard, const ConnectFourMove& move);
+	ConnectFourMoveResult ConnectFourAnalyzeMove(const ConnectFourGameBoard& gameBoard, const ConnectFourMove& Move_t);
 
 	// Classes
 	class ConnectFourMove : public Action
@@ -61,8 +61,8 @@ namespace Ai
 			: m_parentLink((initialPlayer == kConnectFourGameBoardValue_Red) ? kConnectFourGameBoardValue_Black : kConnectFourGameBoardValue_Red, 0, 0)
 			, m_gameBoard(gameBoard) {}
 
-		ConnectFourTreeNode(ConnectFourMove move, ConnectFourGameBoard gameBoard)
-			: m_parentLink(move)
+		ConnectFourTreeNode(ConnectFourMove Move_t, ConnectFourGameBoard gameBoard)
+			: m_parentLink(Move_t)
 			, m_gameBoard(gameBoard) {}
 
 		int DetermineScore(bool returnMaximum) const
@@ -99,10 +99,10 @@ namespace Ai
 					GameBoardLocation<ConnectFourGameBoardValue> element = m_gameBoard.GetValue(row, column);
 					if (element.m_contents == Ai::kConnectFourGameBoardValue_Empty)
 					{
-						ConnectFourMove move(nextPlayer, row, column);
+						ConnectFourMove Move_t(nextPlayer, row, column);
 						ConnectFourGameBoard gameBoard(m_gameBoard);
 						gameBoard.SetValue(row, column, nextPlayer);
-						children.emplace_back(move, gameBoard);
+						children.emplace_back(Move_t, gameBoard);
 					}
 				}
 			}
@@ -130,18 +130,18 @@ namespace Ai
 			}
 		}
 
-		ConnectFourTreeNode GenerateChild(const ConnectFourMove& move) const
+		ConnectFourTreeNode GenerateChild(const ConnectFourMove& Move_t) const
 		{
 			ConnectFourTreeNode child(*this);
-			child.m_gameBoard.SetValue(move.m_row, move.m_column, move.m_value);
+			child.m_gameBoard.SetValue(Move_t.m_row, Move_t.m_column, Move_t.m_value);
 			return child;
 		}
 
-		ConnectFourTreeNode GetChild(const ConnectFourMove& move) const
+		ConnectFourTreeNode GetChild(const ConnectFourMove& Move_t) const
 		{
 			ConnectFourTreeNode child(*this);
-			child.m_gameBoard.SetValue(move.m_row, move.m_column, move.m_value);
-			child.m_parentLink = move;
+			child.m_gameBoard.SetValue(Move_t.m_row, Move_t.m_column, Move_t.m_value);
+			child.m_parentLink = Move_t;
 			return child;
 		}
 
