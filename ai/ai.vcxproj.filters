@@ -33,12 +33,6 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="examples\connect_four.h">
-      <Filter>Source Files\examples</Filter>
-    </ClInclude>
-    <ClInclude Include="examples\tic_tac_toe.h">
-      <Filter>Source Files\examples</Filter>
-    </ClInclude>
     <ClInclude Include="include\ai\examples\connect_four.h">
       <Filter>Header Files\ai\examples</Filter>
     </ClInclude>
@@ -67,6 +61,12 @@
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\examples\connectfour.cpp">
+      <Filter>Source Files\examples</Filter>
+    </ClCompile>
+    <ClCompile Include="src\examples\tictactoe.cpp">
+      <Filter>Source Files\examples</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

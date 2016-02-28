@@ -13,7 +13,7 @@
 #include "AsciiSprite.h"
 #include "Player.h"
 #include "PlayerAi.h"
-#include "ai/examples/tic_tac_toe.h"
+#include "ai/examples/tictactoe.h"
 
 class AsciiCanvas;
 

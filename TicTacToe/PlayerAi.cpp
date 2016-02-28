@@ -11,11 +11,16 @@ void AiPlayerMiniMax::DetermineMove(const Ai::TicTacToeMove& lastMove, Ai::TicTa
 	Ai::TicTacToeTreeNode tree(lastMove, gameBoard);
 
 	// Evalutes the next Move_t.
-	int a = -std::numeric_limits<int>::max();
-	int b = std::numeric_limits<int>::max();
-	int depth = 10;
+//	int a = -std::numeric_limits<int>::max();
+//	int b = std::numeric_limits<int>::max();
+//	int depth = 10;
 
-	Ai::TicTacToeMove bestMove;
+    Ai::TicTacToePolicy game;
+    Ai::TicTacToeMove bestMove = 
+        Ai::MiniMax<Ai::TicTacToeTreeNode, Ai::TicTacToeMove, Ai::TicTacToePolicy, Ai::TicTacToePlayer>(tree, player, 10, game);
+
+
+/*
 	std::vector<Ai::TicTacToeMove> moves;
 	tree.GenerateMoves(moves);
 	for each(const Ai::TicTacToeMove& Move_t in moves)
@@ -30,6 +35,7 @@ void AiPlayerMiniMax::DetermineMove(const Ai::TicTacToeMove& lastMove, Ai::TicTa
 			bestMove = Move_t;
 		}
 	}
+*/
 
 	std::cerr << "Evaluated states: " << m_evaluatedStates << std::endl;
 	outRow = bestMove.m_row;

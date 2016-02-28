@@ -1,6 +1,6 @@
 #include "StdAfx.h"
 
-#include "AI/Examples/TicTacToe.h"
+#include "ai/examples/tictactoe.h"
 
 namespace Ai
 {

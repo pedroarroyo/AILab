@@ -74,8 +74,6 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="examples\connect_four.h" />
-    <ClInclude Include="examples\tic_tac_toe.h" />
     <ClInclude Include="include\ai\game.h" />
     <ClInclude Include="include\ai\minimax.h" />
     <ClInclude Include="include\ai\examples\connect_four.h" />
@@ -88,6 +86,8 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\examples\connectfour.cpp" />
+    <ClCompile Include="src\examples\tictactoe.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>

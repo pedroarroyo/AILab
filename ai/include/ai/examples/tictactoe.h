@@ -14,13 +14,6 @@ namespace Ai
 		kTicTacToeGameBoardValue_O = 0,
 		kTicTacToeGameBoardValue_X = -1
 	};
-
-    enum TicTacToeGameState
-    {
-        kTicTacToeMoveResult_Draw = 0,
-        kTicTacToeMoveResult_Victory = 1,
-        kTicTacToeMoveResult_Loss = -1
-    };
 	
 	enum TicTacToeMoveResult
 	{
@@ -44,7 +37,7 @@ namespace Ai
 	class TicTacToeMove;
 
 	// Helpers
-	TicTacToeMoveResult TicTacToeAnalyzeBoard(const TicTacToeGameBoard& gameBoard, const TicTacToePlayer& player);
+	TicTacToeMoveResult TicTacToeAnalyzeMove(const TicTacToeGameBoard& gameBoard, const TicTacToeMove& Move_t);
 
 	// Classes
 	class TicTacToeMove : public Ai::Action
@@ -196,27 +189,18 @@ namespace Ai
 
 		bool TerminalTest(const TicTacToeTreeNode& node) const override
 		{
-			TicTacToeMoveResult result = TicTacToeAnalyzeBoard(node.m_gameBoard, node.m_parentLink.m_value);
+			TicTacToeMoveResult result = TicTacToeAnalyzeMove(node.m_gameBoard, node.m_parentLink);
 			return (result == kTicTacToeMoveResult_Draw || result == kTicTacToeMoveResult_Victory);
 		}
 
 		int Utility(const TicTacToeTreeNode& node, const TicTacToePlayer& player) const override
 		{
-			const TicTacToeMoveResult result = TicTacToeAnalyzeBoard(node.m_gameBoard, player);
+			const TicTacToeMoveResult result = TicTacToeAnalyzeMove(node.m_gameBoard, node.m_parentLink);
 
-            switch (result)
-            {
-            case kTicTacToeMoveResult_Victory:
-                return 1;
-            case kTicTacToeMoveResult_Draw:
-                return 
-                
-            }
 			if (result == kTicTacToeMoveResult_Victory)
 			{
 				return 1;
 			}
-            else if (result == k)
 
 			return 0;
 		}

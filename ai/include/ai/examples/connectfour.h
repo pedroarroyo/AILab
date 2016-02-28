@@ -1,7 +1,7 @@
 #ifndef AI_EXAMPLES_CONNECTFOUR_H_
 #define AI_EXAMPLES_CONNECTFOUR_H_
 
-#include "GameBoard.h"
+#include "game_board.h"
 #include "ai/node.h"
 
 namespace Ai
